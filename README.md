@@ -1,59 +1,71 @@
-# PokemonSsr
+### Link Paquetes del Projectos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6.
+### Documentacion Taiwind
 
-## Development server
+[Guía Tailwind con Angular](https://tailwindcss.com/docs/installation/framework-guides/angular)
 
-To start a local development server, run:
 
-```bash
-ng serve
+## Comando de Angular para agrgear SSR (Server Side Rendering)
+
+[Angular SSR](https://angular.dev/guide/ssr)
+
+```
+ng add @angular/ssr
+```
+## Documentacion SSR (Static Site Generation)
+
+[Angular SSG](https://angular.dev/guide/prerendering)
+
+## Agregar la siguiente linea en angular.json
+```
+"prerender" : { "routesFile": "routes.txt" }
+```
+## Remover la siguiente linea en angular.json
+```
+"outputMode": "server",
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Crear Script para realizar archivo router prerender(router.txt) de Forma Automatica
+```
+/scripts/prerener-router.js
+```
+## Editar comando Build
+```
+"build": "npm run prerender:routes && ng build",
+"prerender:routes": "node scripts/prerender-routes.js"
+```
+            
+## Doc Test Http Service
+[Angular Test Service](https://angular.dev/guide/testing/services#testing-http-services)
 
-## Code scaffolding
+## Doc Test Request
+[Angular Testing](https://angular.dev/guide/http/testing)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
+## Doc Test Esperando y Respondiendo Request
+[Angular Testing](https://angular.dev/guide/http/testing#expecting-and-answering-requests)
+
+# Comando limpiar docker
+``` 
+docker-compose down
+docker system prune -a --volumes -f
+```
+# Comando Para countruir la imagen local y prod
+``` 
+docker-compose build
+docker-compose -f docker-compose.prod.yml build
+```
+# Comado para levantar imagen local y prod
+```
+docker-compose up -d
+docker-compose -f docker-compose.prod.yml up -d
+```
+# Comado para subir imagen al repositorio de google cloud (GCP)
+```
+gcloud auth configure-docker us-central1-docker.pkg.dev
+docker image push us-central1-docker.pkg.dev/teslo-shop-backend/teslo-shop-app/teslo-shop-backend
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+# Github Pages 
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+[View Teslo Shop Angular](https://nruz-app.github.io/angular-teslo-shop/#/)

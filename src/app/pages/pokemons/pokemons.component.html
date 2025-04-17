@@ -1,0 +1,35 @@
+
+<h1 class="text-3xl"> Listado de Pokemons </h1>
+
+<h2 class="text-xl"> Pagina Actual : {{ currentPage() }} </h2>
+
+<hr class="my-2" />
+
+  @if( pokemons().length !== 0 ) {
+    <pokemon-list [pokemons]="pokemons()" />
+  }
+  <!-- -->
+  @else {
+    <pokemon-list-skeleton />
+  }
+
+
+<div class="flex justify-between">
+  <button
+    class="mt-2 px-6 py-2 bg-blue-600 text-white font-semibold rounded-xl shadow-md hover:bg-blue-700 transition duration-300"
+    [routerLink] = "['/pokemons/page',currentPage()! - 1]">
+
+    Anteriores
+  </button>
+
+  <button
+    class="mt-2 px-6 py-2 bg-blue-600 text-white font-semibold rounded-xl shadow-md hover:bg-blue-700 transition duration-300"
+    [routerLink] = "['/pokemons/page',currentPage()! + 1]">
+
+    Siguientes
+  </button>
+
+  <!-- <button (click)="currentName.set('Otro Nombre')" class="mt-2">
+    {{ currentName() }}
+  </button> -->
+</div>
