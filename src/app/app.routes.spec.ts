@@ -33,7 +33,7 @@ describe('App Routes', () => {
 
     // console.log(location.path());
 
-    expect(location.path()).toBe('/about');
+    expect(location.path()).toBe('/pokemons');
   });
 
   it('should load the proper component', async () => {

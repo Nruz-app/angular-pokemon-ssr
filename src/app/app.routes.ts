@@ -2,6 +2,10 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: 'pokemons',
+    loadComponent: () => import('@pages/pokemons/pokemons.component'),
+  },
+  {
     path: 'pokemons/page/:page',
     loadComponent: () => import('@pages/pokemons/pokemons.component'),
   },
@@ -28,7 +32,7 @@ export const routes: Routes = [
       //Se puede llamar a un servicio para agregar alguna logica (autenticacion)
       //const authService = inject(AuthService);
 
-       return 'about';
+       return 'pokemons';
     }
   }
 ];

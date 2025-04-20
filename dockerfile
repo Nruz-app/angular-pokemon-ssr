@@ -4,29 +4,48 @@ FROM node:21-alpine3.19 AS build
 # Paso 2: Establece el directorio de trabajo
 WORKDIR /app
 
-# Paso 3: Copia los archivos de configuración y dependencias
+# Paso 3: Evita que Puppeteer descargue su propio Chromium
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+
+# Paso 4: Copia archivos de configuración y dependencias
 COPY angular.json package.json package-lock.json ./
 
-# Paso 4: Instala dependencias antes de copiar el código fuente completo (para aprovechar cacheo de capas)
+# Paso 5: Instala dependencias
 RUN npm install
 
-# Paso 5: Copia el resto de los archivos de la aplicación
+# Paso 6: Instala Chromium y dependencias del sistema
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    bash
+
+# Paso 7: Configuración para que Puppeteer/Karma use el Chromium del sistema
+ENV CHROME_BIN=/usr/bin/chromium
+
+# Paso 8: Copia el resto del código fuente
 COPY . .
 
-# Paso 6: Construye la aplicación Angular
+# Paso 9: Ejecuta tests
+RUN npm run test:docker
+
+# Paso 10: Construye la aplicación Angular
 RUN npm run build
 
-# Paso 7: Usa Nginx para servir la aplicación
+# Paso 11: Usa Nginx para servir la aplicación
 FROM nginx:alpine
 
-# Paso 8: Copia la configuración personalizada de Nginx
-COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
+# Paso 12: Copia la configuración personalizada de Nginx
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
 
-# Paso 9: Copia los archivos de la aplicación Angular construida desde la etapa anterior
+# Paso 13: Copia los archivos de la aplicación construida
 COPY --from=build /app/dist/pokemon-ssr/browser /usr/share/nginx/html
 
-# Exponer el puerto 80 para acceso web
+# Exponer el puerto 80
 EXPOSE 4200
 
-# Paso 10: Ejecuta Nginx en primer plano
+# Paso 14: Ejecuta Nginx en primer plano
 CMD ["nginx", "-g", "daemon off;"]
