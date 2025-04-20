@@ -68,4 +68,5 @@ docker image push us-central1-docker.pkg.dev/teslo-shop-backend/teslo-shop-app/t
 
 # Github Pages 
 
-[View Teslo Shop Angular](https://nruz-app.github.io/angular-teslo-shop/#/)
+[View Pokemon SSR Angular](https://nruz-app.github.io/angular-pokemon-ssr/pokemons)
+
