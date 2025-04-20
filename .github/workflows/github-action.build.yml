@@ -1,4 +1,4 @@
-name: Angular Gifs App
+name: Angular Pokemon SSR
 
 on:
   push:
@@ -50,7 +50,7 @@ jobs:
         run: npm ci
 
       - name: Instalall Depencias
-        run: npx ng build --configuration=production --base-href=/angular-teslo-shop/
+        run: npx ng build --configuration=production --base-href=/angular-pokemon-ssr/
 
       - name: Instalar angular-cli-ghpages
         run: npm install -g angular-cli-ghpages
@@ -63,7 +63,7 @@ jobs:
         with:
             token: ${{ secrets.GH_TOKEN }}
             branch: gh-pages
-            folder: dist/teslo-shop/browser
+            folder: dist/pokemon-ssr/browser
             clean: true
 
 
